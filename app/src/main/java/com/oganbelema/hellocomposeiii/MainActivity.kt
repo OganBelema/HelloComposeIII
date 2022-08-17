@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Slider
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -109,6 +110,10 @@ onValChange: (String) -> Unit = {}){
 
     val keyboardController = LocalSoftwareKeyboardController.current
 
+    val sliderPositionState = remember {
+        mutableStateOf(0f)
+    }
+
     Surface(
         modifier = modifier
             .padding(2.dp)
@@ -132,6 +137,10 @@ onValChange: (String) -> Unit = {}){
                 })
 
             if (validState) {
+                val splitNumber = remember {
+                    mutableStateOf(1)
+                }
+
                 Row(modifier = modifier.padding(3.dp),
                 horizontalArrangement = Arrangement.Start) {
                     Text(text = "Split",
@@ -145,19 +154,45 @@ onValChange: (String) -> Unit = {}){
                             imageVector = Icons.Default.Remove,
                             contentDescription = "Remove Icon",
                             onClick = {
-
+                                if (splitNumber.value != 1){
+                                    splitNumber.value -= 1
+                                }
                             })
                         
-                        Text(text = "2", modifier = Modifier.align(Alignment.CenterVertically)
+                        Text(text = splitNumber.value.toString(), modifier = Modifier
+                            .align(Alignment.CenterVertically)
                             .padding(start = 9.dp, end = 9.dp))
 
                         RoundIconButton(
                             imageVector = Icons.Default.Add,
                             contentDescription = "Add Icon",
                             onClick = {
-
+                                splitNumber.value += 1
                             })
                     }
+                }
+
+                //Tip Row
+                Row(modifier = Modifier.padding(horizontal = 3.dp, vertical = 12.dp)) {
+                    Text(text = "Text",
+                    modifier = Modifier.align(alignment = Alignment.CenterVertically))
+                    
+                    Spacer(modifier = Modifier.width(200.dp))
+                    
+                    Text(text = "€33.0",
+                        modifier = Modifier.align(alignment = Alignment.CenterVertically))
+                }
+                
+                Column(verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(text = "33%")
+                    
+                    Spacer(modifier = Modifier.height(14.dp))
+                    
+                    //Slider
+                    Slider(value = sliderPositionState.value , onValueChange = { newValue ->
+                        sliderPositionState.value = newValue
+                    })
                 }
             } else {
                 Box() {}

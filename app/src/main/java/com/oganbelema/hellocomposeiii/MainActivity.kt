@@ -3,7 +3,9 @@ package com.oganbelema.hellocomposeiii
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
@@ -33,7 +35,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MyApp(content: @Composable () -> Unit){
+fun MyApp(content: @Composable () -> Unit) {
     // A surface container using the 'background' color from the theme
     Surface(
         color = MaterialTheme.colors.background
@@ -42,14 +44,14 @@ fun MyApp(content: @Composable () -> Unit){
     }
 }
 
-@Preview
 @Composable
 fun TopHeader(totalPerPerson: Double = 0.0) {
-    Surface(modifier = Modifier
-        .fillMaxWidth()
-        .height(150.dp)
-        .clip(shape = RoundedCornerShape(corner = CornerSize(12.dp))),
-    color = Color(0xFF64B5F6)
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(150.dp)
+            .clip(shape = RoundedCornerShape(corner = CornerSize(12.dp))),
+        color = Color(0xFF64B5F6)
     ) {
         val total = "%.2f".format(totalPerPerson)
 
@@ -59,11 +61,29 @@ fun TopHeader(totalPerPerson: Double = 0.0) {
             verticalArrangement = Arrangement.Center
         ) {
             Text(text = "Total Per Person", style = MaterialTheme.typography.h5)
-            Text(text = "€$total", style = MaterialTheme.typography.h4,
-            fontWeight = FontWeight.ExtraBold)
+            Text(
+                text = "€$total", style = MaterialTheme.typography.h4,
+                fontWeight = FontWeight.ExtraBold
+            )
         }
     }
 
+}
+
+@Preview
+@Composable
+fun MainContent() {
+    Surface(
+        modifier = Modifier
+            .padding(2.dp)
+            .fillMaxWidth(),
+        shape = CircleShape.copy(all = CornerSize(8.dp)),
+        border = BorderStroke(width = 1.dp, color = Color.LightGray)
+    ) {
+        Column() {
+            
+        }
+    }
 }
 
 @Preview(showBackground = true)

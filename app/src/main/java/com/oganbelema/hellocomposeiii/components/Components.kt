@@ -9,6 +9,7 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AttachMoney
+import androidx.compose.material.icons.rounded.EuroSymbol
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
@@ -36,7 +37,7 @@ fun InputField(
         label = { Text(text = labelId) },
         leadingIcon = {
             Icon(
-                imageVector = Icons.Rounded.AttachMoney,
+                imageVector = Icons.Rounded.EuroSymbol,
                 contentDescription = "Money icon"
             )
         },

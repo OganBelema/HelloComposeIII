@@ -40,7 +40,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             HelloComposeIIITheme {
                 MyApp {
-                    //TopHeader()
                     MainContent()
                 }
             }
@@ -52,7 +51,7 @@ class MainActivity : ComponentActivity() {
 fun MyApp(content: @Composable () -> Unit) {
     // A surface container using the 'background' color from the theme
     Surface(
-        color = MaterialTheme.colors.background
+       color = MaterialTheme.colors.background
     ) {
         content()
     }
@@ -64,6 +63,7 @@ fun TopHeader(totalPerPerson: Double = 0.0) {
         modifier = Modifier
             .fillMaxWidth()
             .height(150.dp)
+            .padding(all = 16.dp)
             .clip(shape = RoundedCornerShape(corner = CornerSize(12.dp))),
         color = Color(0xFF64B5F6)
     ) {
@@ -89,8 +89,10 @@ fun TopHeader(totalPerPerson: Double = 0.0) {
 @Composable
 fun MainContent() {
 
-    BillForm() { billAmount ->
-        Log.d("Callback", billAmount)
+    Column(modifier = Modifier.padding(all = 12.dp)) {
+        BillForm() { billAmount ->
+            Log.d("Callback", billAmount)
+        }
     }
 
 }
@@ -113,6 +115,8 @@ onValChange: (String) -> Unit = {}){
     val sliderPositionState = remember {
         mutableStateOf(0f)
     }
+
+    TopHeader()
 
     Surface(
         modifier = modifier
@@ -190,9 +194,11 @@ onValChange: (String) -> Unit = {}){
                     Spacer(modifier = Modifier.height(14.dp))
                     
                     //Slider
-                    Slider(value = sliderPositionState.value , onValueChange = { newValue ->
+                    Slider(modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+                        value = sliderPositionState.value , onValueChange = { newValue ->
                         sliderPositionState.value = newValue
-                    })
+                    },
+                    steps = 5)
                 }
             } else {
                 Box() {}
@@ -200,6 +206,7 @@ onValChange: (String) -> Unit = {}){
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable

@@ -13,6 +13,9 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Remove
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.oganbelema.hellocomposeiii.components.InputField
 import com.oganbelema.hellocomposeiii.ui.theme.HelloComposeIIITheme
+import com.oganbelema.hellocomposeiii.widgets.RoundIconButton
 
 @ExperimentalComposeUiApi
 class MainActivity : ComponentActivity() {
@@ -106,13 +110,15 @@ onValChange: (String) -> Unit = {}){
     val keyboardController = LocalSoftwareKeyboardController.current
 
     Surface(
-        modifier = Modifier
+        modifier = modifier
             .padding(2.dp)
             .fillMaxWidth(),
         shape = CircleShape.copy(all = CornerSize(8.dp)),
         border = BorderStroke(width = 1.dp, color = Color.LightGray)
     ) {
-        Column() {
+        Column(modifier = modifier.padding(6.dp),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.Start) {
             InputField(valueState = totalBillState,
                 labelId = "Enter Bill",
                 enabled = true,
@@ -124,6 +130,35 @@ onValChange: (String) -> Unit = {}){
 
                     keyboardController?.hide()
                 })
+
+            if (validState) {
+                Row(modifier = modifier.padding(3.dp),
+                horizontalArrangement = Arrangement.Start) {
+                    Text(text = "Split",
+                        modifier = modifier.align(
+                            alignment = Alignment.CenterVertically
+                        ))
+                    Spacer(modifier = modifier.width(120.dp))
+                    Row(modifier = modifier.padding(horizontal = 3.dp),
+                    horizontalArrangement = Arrangement.End) {
+                        RoundIconButton(
+                            imageVector = Icons.Default.Remove,
+                            contentDescription = "Remove Icon",
+                            onClick = {
+
+                            })
+
+                        RoundIconButton(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = "Add Icon",
+                            onClick = {
+
+                            })
+                    }
+                }
+            } else {
+                Box() {}
+            }
         }
     }
 }

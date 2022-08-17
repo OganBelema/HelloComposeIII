@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -81,7 +82,7 @@ fun MainContent() {
         border = BorderStroke(width = 1.dp, color = Color.LightGray)
     ) {
         Column() {
-            
+
         }
     }
 }

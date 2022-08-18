@@ -2,6 +2,15 @@ This is a compose application from Udemy course - Android Jetpack Compose: The C
 
 Tip Calculator application
 
+Uses:
+- Slider
+- Column
+- Row
+- Spacer
+- InputField
+- Box
+- Observable states (MutableSates)
+
 <p align="middle">
     <img src="screenshots/demo.gif" width="200" height="400">
 </p>

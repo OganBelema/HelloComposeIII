@@ -6,3 +6,10 @@ fun calculateTotalTip(totalBill: Double, tipPercentage: Int): Double {
     else
         0.0
 }
+
+fun calculateTotalPerPerson(totalBill: Double, tipPercentage: Int, splitNumber: Int): Double {
+
+    val bill = calculateTotalTip(totalBill = totalBill, tipPercentage = tipPercentage) + totalBill
+
+    return (bill / splitNumber)
+}

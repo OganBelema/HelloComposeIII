@@ -31,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.oganbelema.hellocomposeiii.components.InputField
 import com.oganbelema.hellocomposeiii.ui.theme.HelloComposeIIITheme
+import com.oganbelema.hellocomposeiii.util.calculateTotalPerPerson
 import com.oganbelema.hellocomposeiii.util.calculateTotalTip
 import com.oganbelema.hellocomposeiii.widgets.RoundIconButton
 
@@ -112,6 +113,10 @@ onValChange: (String) -> Unit = {}){
         totalBillState.value.trim().isNotEmpty()
     }
 
+    val splitNumber = remember {
+        mutableStateOf(1)
+    }
+
     val keyboardController = LocalSoftwareKeyboardController.current
 
     val sliderPositionState = remember {
@@ -122,11 +127,16 @@ onValChange: (String) -> Unit = {}){
         mutableStateOf(0.0)
     }
 
+    val totalBillPerPersonState = remember {
+        mutableStateOf(0.0)
+    }
+
     val tipPercentage = (sliderPositionState.value * 100).toInt()
 
     val splitRange = IntRange(start = 1, endInclusive = 10)
 
-    TopHeader()
+
+    TopHeader(totalBillPerPersonState.value)
 
     Surface(
         modifier = modifier
@@ -151,9 +161,6 @@ onValChange: (String) -> Unit = {}){
                 })
 
             if (validState) {
-                val splitNumber = remember {
-                    mutableStateOf(1)
-                }
 
                 Row(modifier = modifier.padding(3.dp),
                 horizontalArrangement = Arrangement.Start) {
@@ -170,6 +177,12 @@ onValChange: (String) -> Unit = {}){
                             onClick = {
                                 if (splitNumber.value > splitRange.first){
                                     splitNumber.value -= 1
+
+                                    totalBillPerPersonState.value = calculateTotalPerPerson(
+                                        totalBill = totalBillState.value.toDouble(),
+                                        tipPercentage = tipPercentage,
+                                        splitNumber = splitNumber.value
+                                    )
                                 }
                             })
                         
@@ -183,6 +196,12 @@ onValChange: (String) -> Unit = {}){
                             onClick = {
                                 if (splitNumber.value < splitRange.last) {
                                     splitNumber.value += 1
+
+                                    totalBillPerPersonState.value = calculateTotalPerPerson(
+                                        totalBill = totalBillState.value.toDouble(),
+                                        tipPercentage = tipPercentage,
+                                        splitNumber = splitNumber.value
+                                    )
                                 }
                             })
                     }
@@ -211,6 +230,11 @@ onValChange: (String) -> Unit = {}){
                             sliderPositionState.value = newValue
                             tipAmountState.value = calculateTotalTip(totalBill = totalBillState.value.toDouble(),
                                 tipPercentage = tipPercentage)
+                            totalBillPerPersonState.value = calculateTotalPerPerson(
+                                totalBill = totalBillState.value.toDouble(),
+                                tipPercentage = tipPercentage,
+                                splitNumber = splitNumber.value
+                            )
                     },
                     steps = 5)
                 }

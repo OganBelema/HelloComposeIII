@@ -116,6 +116,8 @@ onValChange: (String) -> Unit = {}){
         mutableStateOf(0f)
     }
 
+    val splitRange = IntRange(start = 1, endInclusive = 10)
+
     TopHeader()
 
     Surface(
@@ -158,7 +160,7 @@ onValChange: (String) -> Unit = {}){
                             imageVector = Icons.Default.Remove,
                             contentDescription = "Remove Icon",
                             onClick = {
-                                if (splitNumber.value != 1){
+                                if (splitNumber.value > splitRange.first){
                                     splitNumber.value -= 1
                                 }
                             })
@@ -171,7 +173,9 @@ onValChange: (String) -> Unit = {}){
                             imageVector = Icons.Default.Add,
                             contentDescription = "Add Icon",
                             onClick = {
-                                splitNumber.value += 1
+                                if (splitNumber.value < splitRange.last) {
+                                    splitNumber.value += 1
+                                }
                             })
                     }
                 }
@@ -209,11 +213,12 @@ onValChange: (String) -> Unit = {}){
 
 
 @Preview(showBackground = true)
+@ExperimentalComposeUiApi
 @Composable
 fun DefaultPreview() {
     HelloComposeIIITheme {
         MyApp {
-            TopHeader()
+            MainContent()
         }
     }
 }

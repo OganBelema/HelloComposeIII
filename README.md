@@ -8,4 +8,8 @@ Tip Calculator application
     <img src="screenshots/app3.png" width="200" height="400"> 
 </p>
 
-<img src="screenshots/demo.gif" width="200" height="400">
+<p align="middle">
+    <img src="screenshots/demo.gif" width="200" height="400">
+</p>
+
+

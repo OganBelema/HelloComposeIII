@@ -51,7 +51,8 @@ class MainActivity : ComponentActivity() {
 fun MyApp(content: @Composable () -> Unit) {
     // A surface container using the 'background' color from the theme
     Surface(
-       color = MaterialTheme.colors.background
+       color = MaterialTheme.colors.background,
+        modifier = Modifier.fillMaxSize()
     ) {
         content()
     }

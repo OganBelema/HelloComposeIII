@@ -31,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.oganbelema.hellocomposeiii.components.InputField
 import com.oganbelema.hellocomposeiii.ui.theme.HelloComposeIIITheme
+import com.oganbelema.hellocomposeiii.util.calculateTotalTip
 import com.oganbelema.hellocomposeiii.widgets.RoundIconButton
 
 @ExperimentalComposeUiApi
@@ -220,12 +221,7 @@ onValChange: (String) -> Unit = {}){
     }
 }
 
-fun calculateTotalTip(totalBill: Double, tipPercentage: Int): Double {
-    return if (totalBill.toString().isNotEmpty() && totalBill > 1)
-        (totalBill * tipPercentage) / 100
-    else
-        0.0
-}
+
 
 
 @Preview(showBackground = true)

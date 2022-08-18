@@ -117,6 +117,10 @@ onValChange: (String) -> Unit = {}){
         mutableStateOf(0f)
     }
 
+    val tipAmountState = remember {
+        mutableStateOf(0.0)
+    }
+
     val tipPercentage = (sliderPositionState.value * 100).toInt()
 
     val splitRange = IntRange(start = 1, endInclusive = 10)
@@ -185,12 +189,12 @@ onValChange: (String) -> Unit = {}){
 
                 //Tip Row
                 Row(modifier = Modifier.padding(horizontal = 3.dp, vertical = 12.dp)) {
-                    Text(text = "Text",
+                    Text(text = "Tip",
                     modifier = Modifier.align(alignment = Alignment.CenterVertically))
                     
                     Spacer(modifier = Modifier.width(200.dp))
                     
-                    Text(text = "€33.0",
+                    Text(text = "€${tipAmountState.value}",
                         modifier = Modifier.align(alignment = Alignment.CenterVertically))
                 }
                 
@@ -203,7 +207,9 @@ onValChange: (String) -> Unit = {}){
                     //Slider
                     Slider(modifier = Modifier.padding(start = 16.dp, end = 16.dp),
                         value = sliderPositionState.value , onValueChange = { newValue ->
-                        sliderPositionState.value = newValue
+                            sliderPositionState.value = newValue
+                            tipAmountState.value = calculateTotalTip(totalBill = totalBillState.value.toDouble(),
+                                tipPercentage = tipPercentage)
                     },
                     steps = 5)
                 }
@@ -212,6 +218,13 @@ onValChange: (String) -> Unit = {}){
             }
         }
     }
+}
+
+fun calculateTotalTip(totalBill: Double, tipPercentage: Int): Double {
+    return if (totalBill.toString().isNotEmpty() && totalBill > 1)
+        (totalBill * tipPercentage) / 100
+    else
+        0.0
 }
 
 
